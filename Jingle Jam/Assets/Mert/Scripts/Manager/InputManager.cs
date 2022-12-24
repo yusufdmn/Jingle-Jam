@@ -8,7 +8,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Camera mainCam;
     [SerializeField] private float maxDistanceToCollectable;
     [SerializeField] private float maxDistanceToEnergyBottle;
-    
+
+    [SerializeField] EnergyController energyController;
     void Update()
     {
         
@@ -40,7 +41,9 @@ public class InputManager : MonoBehaviour
                 float distance = playerController.GetPlayerDistanceToObject(hit.collider.gameObject);
                 if (distance < maxDistanceToEnergyBottle)
                 {
-                    Destroy(hit.collider.gameObject);
+                    //Destroy(hit.collider.gameObject);
+                    hit.collider.GetComponent<EnergyBottle>().ReduceBottleEnergy();
+                    energyController.IncreaseEnergy();
                 }
             }            
         }

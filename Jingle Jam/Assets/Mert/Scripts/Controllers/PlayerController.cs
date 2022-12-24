@@ -18,8 +18,7 @@ public class PlayerController : MonoBehaviour
 
     public void MovePlayer(float rotation)
     {
-        player.transform.Translate(new Vector3(player.speed * rotation, player.transform.position.y,
-            player.transform.position.z));
+        player.transform.Translate(new Vector3(player.speed * rotation, 0, 0));
     }
 
     public void ArrangeRotation(float rotation)
