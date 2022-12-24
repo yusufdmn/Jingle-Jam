@@ -7,10 +7,20 @@ public class EnergyController : MonoBehaviour
     [SerializeField] float maxEnergy;
     [SerializeField] float energy;
     [SerializeField] float reduceSpeed;
+    [SerializeField] float extraEnergy;
+
+    [SerializeField] SpriteRenderer energyFill;
+    float fillAmount;
+
+    private void Start()
+    {
+        energy = maxEnergy;
+    }
 
     private void Update()
     {
         ReduceEnergy();
+        SetEnergyFill();
     }
 
     public void ReduceEnergy()
@@ -18,10 +28,17 @@ public class EnergyController : MonoBehaviour
         energy -= reduceSpeed * Time.deltaTime;
     }
 
-    public void IncreaseEnergy(float additionalEnergy)
+    public void IncreaseEnergy()
     {
-        energy += reduceSpeed;
+        energy += extraEnergy;
     }
-
+    
+    public void SetEnergyFill()
+    {
+        fillAmount = energy / maxEnergy;
+        Vector2 size = energyFill.size;
+        size.x = fillAmount;
+        energyFill.size = size;
+    }
 
 }
