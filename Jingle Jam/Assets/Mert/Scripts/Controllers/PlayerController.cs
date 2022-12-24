@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -40,5 +41,10 @@ public class PlayerController : MonoBehaviour
                 player.isLookingLeft = false;
             }
         }
+    }
+
+    public float GetPlayerDistanceToObject(GameObject targetObject)
+    {
+        return transform.position.x - targetObject.transform.position.x;
     }
 }

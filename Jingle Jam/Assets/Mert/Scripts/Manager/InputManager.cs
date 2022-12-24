@@ -6,7 +6,8 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Camera mainCam;
-    
+    [SerializeField] private float maxDistanceToCollectable;
+    [SerializeField] private float maxDistanceToEnergyBottle;
     
     void Update()
     {
@@ -27,12 +28,20 @@ public class InputManager : MonoBehaviour
             // collectable
             if (hit.collider != null && hit.collider.CompareTag("Collectable"))
             {
-                Destroy(hit.collider.gameObject);
+                float distance = playerController.GetPlayerDistanceToObject(hit.collider.gameObject);
+                if (distance < maxDistanceToCollectable)
+                {
+                    Destroy(hit.collider.gameObject);
+                }
             }
             // emergy bottle
             if (hit.collider != null && hit.collider.CompareTag("EnergyBottle"))
             {
-                Destroy(hit.collider.gameObject);
+                float distance = playerController.GetPlayerDistanceToObject(hit.collider.gameObject);
+                if (distance < maxDistanceToEnergyBottle)
+                {
+                    Destroy(hit.collider.gameObject);
+                }
             }            
         }
     }
