@@ -12,6 +12,8 @@ public class EnergyController : MonoBehaviour
     [SerializeField] SpriteRenderer energyFill;
     float fillAmount;
 
+    public bool hasPlayerEnergyFinished;
+
     private void Start()
     {
         energy = maxEnergy;
@@ -21,11 +23,13 @@ public class EnergyController : MonoBehaviour
     {
         ReduceEnergy();
         SetEnergyFill();
+        CheckAndLimitEnergy();
     }
 
     public void ReduceEnergy()
     {
-        energy -= reduceEnergySpeed * Time.deltaTime;
+        if(hasPlayerEnergyFinished == false)
+            energy -= reduceEnergySpeed * Time.deltaTime;
     }
 
     public void IncreaseEnergy()
@@ -39,6 +43,18 @@ public class EnergyController : MonoBehaviour
         Vector2 size = energyFill.size;
         size.x = fillAmount;
         energyFill.size = size;
+    }
+
+    public void CheckAndLimitEnergy()
+    {
+        if(energy <= 0)
+        {
+            hasPlayerEnergyFinished = true;
+        }
+        else if(energy >= maxEnergy)
+        {
+            energy = maxEnergy;
+        }
     }
 
 }

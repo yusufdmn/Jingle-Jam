@@ -6,10 +6,11 @@ public class EnergyBottle : MonoBehaviour
 {
     float maxBottleEnergy = 100;
     public float bottleEnergy;
-    [SerializeField] float reduceSpeed;
+    [SerializeField] private float reduceSpeed;
 
     [SerializeField] SpriteRenderer bottleEnergyFill;
     float fillAmount;
+    private bool hasBottleFinished;
 
     private void Start()
     {
@@ -17,8 +18,12 @@ public class EnergyBottle : MonoBehaviour
     }
     public void ReduceBottleEnergy()
     {
-        bottleEnergy -= Time.deltaTime * reduceSpeed;
-        SetEnergyFill();
+        if (hasBottleFinished == false)
+        {
+            bottleEnergy -= Time.deltaTime * reduceSpeed;
+            SetEnergyFill();
+            CheckEnergyLimit();
+        }
     }
     public void SetEnergyFill()
     {
@@ -27,4 +32,11 @@ public class EnergyBottle : MonoBehaviour
         size.x = fillAmount;
         bottleEnergyFill.size = size;
     }
+
+    public void CheckEnergyLimit()
+    {
+        if (bottleEnergy <= 0)
+            hasBottleFinished = true;
+    }
+
 }
