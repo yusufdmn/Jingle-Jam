@@ -10,6 +10,11 @@ public class InputManager : MonoBehaviour
     [SerializeField] private float maxDistanceToEnergyBottle;
 
     [SerializeField] EnergyController energyController;
+
+    // Yeni Eklenen Kýsým: 
+    [SerializeField] DoorDedector doorDedector;
+    [SerializeField] StairController stairController;
+
     void Update()
     {
         
@@ -39,13 +44,25 @@ public class InputManager : MonoBehaviour
             if (hit.collider != null && hit.collider.CompareTag("EnergyBottle"))
             {
                 float distance = playerController.GetPlayerDistanceToObject(hit.collider.gameObject);
+
                 if (distance < maxDistanceToEnergyBottle)
                 {
                     //Destroy(hit.collider.gameObject);
                     hit.collider.GetComponent<EnergyBottle>().ReduceBottleEnergy();
                     energyController.IncreaseEnergy();
                 }
-            }            
+            }
+            // Yeni Eklenen Kýsým: 
+
+            if (hit.collider != null && hit.collider.CompareTag("Door"))
+            {
+                doorDedector.ExitHouse();
+            }
+
+            if (hit.collider != null && hit.collider.CompareTag("Stairs"))
+            {
+                stairController.ChangeFloor();
+            }
         }
     }
 }

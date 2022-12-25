@@ -44,6 +44,6 @@ public class PlayerController : MonoBehaviour
 
     public float GetPlayerDistanceToObject(GameObject targetObject)
     {
-        return transform.position.x - targetObject.transform.position.x;
+        return Mathf.Abs(transform.position.x - targetObject.transform.position.x);
     }
 }
