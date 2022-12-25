@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] EnergyController energyController;
 
-    // Yeni Eklenen Kýsým: 
+    // Yeni Eklenen Kï¿½sï¿½m: 
     [SerializeField] DoorDedector doorDedector;
     [SerializeField] StairController stairController;
 
@@ -26,6 +26,7 @@ public class InputManager : MonoBehaviour
             playerController.MovePlayer(xAxis);
             playerController.ArrangeRotation(xAxis);
         }
+        
         // Interact
         if (Input.GetMouseButton(0))
         {
@@ -37,6 +38,8 @@ public class InputManager : MonoBehaviour
                 float distance = playerController.GetPlayerDistanceToObject(hit.collider.gameObject);
                 if (distance < maxDistanceToCollectable)
                 {
+                    InventoryManager.instance.AddToInventory(hit.collider.GetComponent<CollectableItem>());
+                    
                     Destroy(hit.collider.gameObject);
                 }
             }
@@ -44,7 +47,7 @@ public class InputManager : MonoBehaviour
             if (hit.collider != null && hit.collider.CompareTag("EnergyBottle"))
             {
                 float distance = playerController.GetPlayerDistanceToObject(hit.collider.gameObject);
-
+                Debug.Log("Distance" + distance);
                 if (distance < maxDistanceToEnergyBottle)
                 {
                     //Destroy(hit.collider.gameObject);
@@ -52,13 +55,12 @@ public class InputManager : MonoBehaviour
                     energyController.IncreaseEnergy();
                 }
             }
-            // Yeni Eklenen Kýsým: 
-
+            
             if (hit.collider != null && hit.collider.CompareTag("Door"))
             {
                 doorDedector.ExitHouse();
             }
-
+            
             if (hit.collider != null && hit.collider.CompareTag("Stairs"))
             {
                 stairController.ChangeFloor();

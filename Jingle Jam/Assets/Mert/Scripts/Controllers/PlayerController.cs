@@ -6,16 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Player player;
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
+    
     public void MovePlayer(float rotation)
     {
         player.transform.Translate(new Vector3(player.speed * rotation, 0, 0));
@@ -44,6 +35,6 @@ public class PlayerController : MonoBehaviour
 
     public float GetPlayerDistanceToObject(GameObject targetObject)
     {
-        return Mathf.Abs(transform.position.x - targetObject.transform.position.x);
+        return Mathf.Abs(player.transform.position.x - targetObject.transform.position.x);
     }
 }
