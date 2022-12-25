@@ -6,11 +6,11 @@ TagManager:
   tags:
   - Collectable
   - EnergyBottle
+  - Door
+  - Stairs
   - House1
   - House2
   - House3
-  - Door
-  - Stairs
   layers:
   - Default
   - TransparentFX

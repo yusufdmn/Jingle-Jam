@@ -16,7 +16,7 @@ public class HouseDedector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("House1"))
+        if (collision.CompareTag("House"))
         {
             StartCoroutine(ChangeScene(1));
         }
@@ -34,12 +34,19 @@ public class HouseDedector : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangeScene(int houseNo)  // Scene Numbers:  House1:1, House2:2, House3:3, Platform:4
+    public IEnumerator ChangeScene(int houseNo)  // Scene Numbers:  Platform : 0 , House : 1
     {
         PlayerPrefs.SetInt("houseNo", houseNo);
         closingPanel.SetActive(true);
         yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene(0);
+        if (houseNo<4)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
 
